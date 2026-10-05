@@ -17,6 +17,6 @@ Animated "carousel" for Elite Lifestyle Properties property management. Slides a
 
 ## Notes
 
-- Brand: ELITE Design System (espresso/sand, Marcellus/Barlow/Quicksand) pending confirmation against the gold #C7A34A preference.
+- Brand: ELITE Design System, Brand Tokens V3 (23-09-2026), confirmed by Mitch. Espresso/sand, Marcellus/Barlow/Quicksand, gold retired. Tokens in DESIGN.md.
 - Mitchell Lund is the named principal. Contact block to be confirmed.
 - Staged output only: name Document_Name_DD-MM-YYYY_HHMM_V<N>.mp4, destination from Routing README, VCD row.
