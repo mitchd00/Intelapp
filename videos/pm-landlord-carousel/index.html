@@ -1,53 +1,109 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-AU">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, height=1080" />
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="assets/gsap.min.js"></script>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      @font-face { font-family: "Marcellus"; src: url("assets/fonts/marcellus-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "Barlow"; src: url("assets/fonts/barlow-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "Barlow"; src: url("assets/fonts/barlow-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+      @font-face { font-family: "Quicksand"; src: url("assets/fonts/quicksand-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+      :root {
+        --espresso-900: #0c0b08; --espresso-800: #171710; --espresso-700: #211e17;
+        --isabelline: #f8f2eb; --body: #d9d0c4; --sand: #e6d4bc; --sand-200: #c4b5a3;
+        --hair: rgba(230, 212, 188, 0.22); --hair-strong: rgba(230, 212, 188, 0.45);
       }
-      html,
-      body {
-        margin: 0;
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-        background: #0a0a0a;
-      }
-      #root {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-      }
-      #title {
-        color: #f4f4f5;
-        font-size: 72px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--espresso-800); }
+      #root { position: relative; width: 100%; height: 100%; background: var(--espresso-800); overflow: hidden; font-family: "Barlow", sans-serif; color: var(--body); }
+      .bg { position: absolute; inset: 0; background: radial-gradient(120% 70% at 50% 0%, var(--espresso-700) 0%, var(--espresso-800) 60%, var(--espresso-900) 100%); }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .pane { position: absolute; inset: 0; padding: 300px 96px 380px; display: flex; flex-direction: column; justify-content: center; }
+      .kicker { font-family: "Quicksand", sans-serif; font-weight: 500; font-size: 30px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); margin-bottom: 40px; }
+      .rule { width: 120px; height: 2px; background: var(--sand); margin-bottom: 48px; }
+      h1, h2 { font-family: "Marcellus", serif; font-weight: 400; color: var(--isabelline); line-height: 1.2; font-size: 112px; }
+      h2 { font-size: 96px; }
+      .sub { font-size: 44px; line-height: 1.5; margin-top: 48px; color: var(--body); max-width: 840px; }
+      .list { margin-top: 64px; display: flex; flex-direction: column; gap: 0; }
+      .item { padding: 40px 0; border-top: 1px solid var(--hair); font-size: 52px; color: var(--isabelline); font-family: "Marcellus", serif; }
+      .item:last-child { border-bottom: 1px solid var(--hair); }
+      .pillar { padding: 36px 0; border-top: 1px solid var(--hair); }
+      .pillar:last-child { border-bottom: 1px solid var(--hair); }
+      .pillar b { display: block; font-family: "Marcellus", serif; font-weight: 400; font-size: 54px; color: var(--isabelline); margin-bottom: 12px; }
+      .pillar span { font-size: 36px; line-height: 1.4; color: var(--body); }
+      .btn { display: inline-block; align-self: flex-start; margin-top: 64px; background: var(--sand); color: var(--espresso-800); font-weight: 600; font-size: 44px; padding: 36px 56px; border-radius: 4px; }
+      .meta { margin-top: 56px; font-family: "Quicksand", sans-serif; font-weight: 500; font-size: 34px; line-height: 1.7; letter-spacing: 0.04em; color: var(--body); }
+      .meta strong { color: var(--isabelline); font-weight: 500; }
+      #dots { position: absolute; top: 150px; left: 96px; right: 96px; display: flex; gap: 16px; }
+      .dot { flex: 1; height: 4px; background: var(--hair); border-radius: 2px; overflow: hidden; }
+      .dot i { display: block; width: 100%; height: 100%; background: var(--sand); transform-origin: left center; }
+      #brand { position: absolute; left: 96px; right: 96px; bottom: 300px; display: flex; justify-content: space-between; font-family: "Quicksand", sans-serif; font-weight: 500; font-size: 26px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand-200); }
     </style>
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="10"
-      data-width="1920"
-      data-height="1080"
-    >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
+    <div data-hf-id="hf-wtrm" id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-m7dd" class="bg"></div>
+
+      <section data-hf-id="hf-4jmw" id="s1" class="scene clip" data-start="0" data-duration="3.95" data-track-index="1">
+        <div data-hf-id="hf-49tj" class="pane" data-layout-allow-overflow=""><div data-hf-id="hf-s26e" class="kicker">Elite Property Management</div><div data-hf-id="hf-a46i" class="rule"></div>
+          <h1 data-hf-id="hf-rgcg">Managed, or just collected?</h1>
+          <p data-hf-id="hf-girh" class="sub">Your investment deserves more than rent in, rent out.</p></div>
+      </section>
+
+      <section data-hf-id="hf-1ho6" id="s2" class="scene clip" data-start="3.5" data-duration="4.45" data-track-index="2">
+        <div data-hf-id="hf-u20n" class="pane" data-layout-allow-overflow=""><div data-hf-id="hf-vzc5" class="kicker">The usual story</div><div data-hf-id="hf-ya9a" class="rule"></div>
+          <h2 data-hf-id="hf-93m2">Where management slips</h2>
+          <div data-hf-id="hf-33o8" class="list"><div data-hf-id="hf-svcg" class="item">Slow replies</div><div data-hf-id="hf-nhyd" class="item">Vague reporting</div><div data-hf-id="hf-knk3" class="item">Rent left to drift</div></div></div>
+      </section>
+
+      <section data-hf-id="hf-eapx" id="s3" class="scene clip" data-start="7.5" data-duration="5.45" data-track-index="3">
+        <div data-hf-id="hf-tnpm" class="pane" data-layout-allow-overflow=""><div data-hf-id="hf-j5lw" class="kicker">The Elite difference</div><div data-hf-id="hf-yokb" class="rule"></div>
+          <h2 data-hf-id="hf-ykgp">Hands-on. Local. Accountable.</h2>
+          <div data-hf-id="hf-wzhs" class="list">
+            <div data-hf-id="hf-3dhw" class="pillar"><b data-hf-id="hf-22zq">Clear communication</b><span data-hf-id="hf-7nti">You always know where your property stands.</span></div>
+            <div data-hf-id="hf-b8do" class="pillar"><b data-hf-id="hf-kjjh">Market-led rent reviews</b><span data-hf-id="hf-xsza">Rent set against current local evidence.</span></div>
+            <div data-hf-id="hf-a1gl" class="pillar"><b data-hf-id="hf-bxco">Carefully selected tenants</b><span data-hf-id="hf-03ki">Your asset placed in capable hands.</span></div>
+          </div></div>
+      </section>
+
+      <section data-hf-id="hf-h37e" id="s4" class="scene clip" data-start="12.5" data-duration="4.45" data-track-index="4">
+        <div data-hf-id="hf-t9el" class="pane" data-layout-allow-overflow=""><div data-hf-id="hf-2ysi" class="kicker">Every quarter</div><div data-hf-id="hf-z2vc" class="rule"></div>
+          <h2 data-hf-id="hf-kj8k">An owner update worth reading</h2>
+          <div data-hf-id="hf-vskp" class="list"><div data-hf-id="hf-m2v6" class="item">Suburb rental snapshot</div><div data-hf-id="hf-du0r" class="item">Nearby rental competition</div><div data-hf-id="hf-z7jr" class="item">Recent sales near you</div><div data-hf-id="hf-vaii" class="item">Our commentary</div></div></div>
+      </section>
+
+      <section data-hf-id="hf-ikd7" id="s5" class="scene clip" data-start="16.5" data-duration="3.5" data-track-index="5">
+        <div data-hf-id="hf-w1js" class="pane" data-layout-allow-overflow=""><div data-hf-id="hf-d1bf" class="kicker">Sunshine Coast landlords</div><div data-hf-id="hf-waq5" class="rule"></div>
+          <h2 data-hf-id="hf-gbmm">Switch to management that moves</h2>
+          <div data-hf-id="hf-2twv" class="btn">Request a Rental Appraisal</div>
+          <div data-hf-id="hf-etn2" class="meta"><strong data-hf-id="hf-u8jf">Mitchell Lund</strong><br data-hf-id="hf-x5px">Elite Lifestyle Properties<br data-hf-id="hf-rsrt">elitelp.com.au</div></div>
+      </section>
+
+      <div data-hf-id="hf-osmo" id="dots" class="clip" data-start="0" data-duration="20" data-track-index="6">
+        <div data-hf-id="hf-lu65" class="dot"><i data-hf-id="hf-wt6k"></i></div><div data-hf-id="hf-ww7l" class="dot"><i data-hf-id="hf-zeb8"></i></div><div data-hf-id="hf-y34o" class="dot"><i data-hf-id="hf-y7e5"></i></div><div data-hf-id="hf-xotn" class="dot"><i data-hf-id="hf-ylp6"></i></div><div data-hf-id="hf-vpai" class="dot"><i data-hf-id="hf-0l8b"></i></div>
+      </div>
+      <div data-hf-id="hf-pdfg" id="brand" class="clip" data-start="0" data-duration="20" data-track-index="7"><span data-hf-id="hf-zrdk">Elite</span><span data-hf-id="hf-ewqn">Property Management</span></div>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
-      // Example: tl.fromTo("#title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6 }, 0);
+      const starts = [0, 3.5, 7.5, 12.5, 16.5];
+      const ends = [3.5, 7.5, 12.5, 16.5, 20];
+      const SW = 0.45;
+      starts.forEach((t, i) => {
+        const id = "#s" + (i + 1);
+        const pane = id + " .pane";
+        if (i > 0) tl.fromTo(pane, { x: 1080 }, { x: 0, duration: SW, ease: "power3.out" }, t);
+        if (i < starts.length - 1) tl.to(pane, { x: -1080, duration: SW, ease: "power3.inOut" }, ends[i]);
+        const parts = document.querySelectorAll(id + " .kicker, " + id + " .rule, " + id + " h1, " + id + " h2, " + id + " .sub, " + id + " .item, " + id + " .pillar, " + id + " .btn, " + id + " .meta");
+        parts.forEach((el, k) => {
+          tl.fromTo(el, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, t + (i > 0 ? SW * 0.6 : 0.1) + k * 0.12);
+        });
+      });
+      const fills = document.querySelectorAll("#dots .dot i");
+      fills.forEach((el, i) => {
+        tl.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: ends[i] - starts[i], ease: "none" }, starts[i]);
+      });
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>
